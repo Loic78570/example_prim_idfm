@@ -34,7 +34,10 @@ newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall
 for x in newlist:
     vehicle = x['MonitoredVehicleJourney']
 
-    call_array = x['MonitoredVehicleJourney']['MonitoredCall']
+    train_name = vehicle['JourneyNote'][0]['value']
+    dest_name = vehicle['DestinationName'][0]['value']
+    call_array = vehicle['MonitoredCall']
+    full_code = vehicle['VehicleJourneyName'][0]['value']
     date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
                                                tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
         .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
