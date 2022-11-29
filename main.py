@@ -78,8 +78,13 @@ for x in newlist:
 
         # time
         if time_diff.seconds > 60:
+            if time_diff.seconds<300:
+                print(Style.BRIGHT+Fore.LIGHTRED_EX, end='')
             print(f"(dans {(time_diff.seconds // 3600) * 60 + (time_diff.seconds // 60) % 60} minutes)")
-        else:
+            print(Style.RESET_ALL, end='')
+        elif vehicle['VehicleAtStop']:
+            print(Fore.LIGHTCYAN_EX+"Train à quai"+Fore.LIGHTCYAN_EX)
+        elif time_diff.seconds < 60:
             print(f"(À l'approche...)")
         # print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
 # print((x for x in req.json()['Siri']))
