@@ -43,6 +43,7 @@ for x in newlist:
         .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
     if time_diff.seconds // 60 < 60:
+        print(f"[{full_code}]", end=" ")
         if train_name == "UZEL":
             print(
                 f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
