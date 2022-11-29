@@ -69,7 +69,7 @@ for x in newlist:
                 end=' ')
         elif line_ref == "STIF:Line::C01372:":
             print(
-                f"Le {Fore.LIGHTGREEN_EX}Métro (2){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: <25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTGREEN_EX}Métro (2){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
         else:
             print(
