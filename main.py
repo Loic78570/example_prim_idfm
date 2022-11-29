@@ -49,6 +49,7 @@ for x in newlist:
                                                tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
         .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
+
     if time_diff.seconds // 60 < 60:
         print(f"[{full_code}]", end=" ")
         if train_name == "UZEL":
@@ -80,7 +81,7 @@ for x in newlist:
         if call_array['VehicleAtStop']:
             print(Fore.LIGHTCYAN_EX + "Train à quai" + Fore.LIGHTCYAN_EX)
         elif time_diff.seconds < 60:
-            print(f"(À l'approche...)")
+            print(f"{Fore.RED}(À l'approche...){Fore.RESET}")
         # elif time_diff.seconds > 60:
         else:
             if time_diff.seconds < 300:
