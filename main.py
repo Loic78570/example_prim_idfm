@@ -73,7 +73,7 @@ for x in newlist:
                 end=' ')
         else:
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: <25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
 
         # time
