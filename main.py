@@ -42,18 +42,18 @@ for x in valz:
     if time_diff.seconds // 60 < 60:
         if train_name == "UZEL":
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de Cergy passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
+                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
         elif train_name == "MOCA":
             print(
-                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de Mantes la Jolie passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
+                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
         elif train_name == "PUCA":
             print(
-                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de Paris-Saint-Lazare passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
+                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
         elif train_name == "NANI":
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de Paris (Boissy, etc) passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
+                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
         else:
-            print(f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de Paris (Boissy, etc) passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
+            print(f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')} (dans {time_diff.seconds // 60} minutes)")
 # print((x for x in req.json()['Siri']))
 # Ecriture de la réponse reçue sur un fichier
 open('Reponse.json', 'wb').write(req.content)
