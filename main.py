@@ -30,9 +30,9 @@ print('Status:', req)
 # print(req.content)
 req_json = req.json()
 valz = req.json()['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit']
-for x in valz:
-    train_name = x['MonitoredVehicleJourney']['JourneyNote'][0]['value']
-    dest_name = x['MonitoredVehicleJourney']['DestinationName'][0]['value']
+newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'])
+for x in newlist:
+    vehicle = x['MonitoredVehicleJourney']
 
     call_array = x['MonitoredVehicleJourney']['MonitoredCall']
     date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
