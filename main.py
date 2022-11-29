@@ -63,7 +63,8 @@ for x in newlist:
                 f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: <25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
 
         #time
-        print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
+        print(f"(dans {(time_diff.seconds//3600)*60 + (time_diff.seconds//60)%60} minutes)")
+        # print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
 # print((x for x in req.json()['Siri']))
 # Ecriture de la réponse reçue sur un fichier
 open('Reponse.json', 'wb').write(req.content)
