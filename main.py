@@ -26,6 +26,7 @@ headers = {'Accept': 'application/json', 'apikey': secrets.api}
 req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:58759:'})
 # cfo : 43114
 # cdg etoile rer A : 58759
+# cdg etoile 22094 , 463043
 # Affichage du code réponse
 print('Status:', req)
 # Affichage du contenu de la réponse
