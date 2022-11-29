@@ -88,7 +88,6 @@ for x in newlist:
                 print(Style.BRIGHT + Fore.LIGHTRED_EX, end='')
             print(f"(dans {(time_diff.seconds // 3600) * 60 + (time_diff.seconds // 60) % 60} minutes)")
             print(Style.RESET_ALL, end='')
-
         # print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
 # print((x for x in req.json()['Siri']))
 # Ecriture de la réponse reçue sur un fichier
