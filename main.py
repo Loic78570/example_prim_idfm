@@ -50,10 +50,17 @@ for x in newlist:
     dest_name = vehicle['DestinationName'][0]['value']
     line_ref = vehicle['LineRef']['value']
     call_array = vehicle['MonitoredCall']
-
-    # date_dept = dateutil.parser.parser().parse(timestr=call_array['AimedDepartureTime'],
-    #                                                tzinfos={'Z': dateutil.tz.gettz('Europe/London')})\
-    #             .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+    try:
+        date_dept = dateutil.parser.parser().parse(timestr=call_array['AimedDepartureTime'],
+                                                   tzinfos={'Z': dateutil.tz.gettz('Europe/London')})\
+                .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+    except KeyError:
+        try:
+            date_dept = dateutil.parser.parser().parse(timestr=call_array['ExpectedDepartureTime'],
+                                                       tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+                .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+        except KeyError:
+            pass
     try:
         full_code = vehicle['VehicleJourneyName'][0]['value']
     except KeyError:
