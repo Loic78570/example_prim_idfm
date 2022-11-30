@@ -23,7 +23,7 @@ url = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring'
 # par votre clé API
 headers = {'Accept': 'application/json', 'apikey': secrets.api}
 # Envoi de la requête au serveur
-req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:58759:'})
+req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:43114:'})
 # cfo : 43114
 # cdg etoile rer A : 58759
 # cdg etoile 22094 , 463043
@@ -31,9 +31,15 @@ req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoin
 print('Status:', req)
 # Affichage du contenu de la réponse
 print(req.content)
+# Ecriture de la réponse reçue sur un fichier
+open('Reponse.json', 'wb').write(req.content)
 req_json = req.json()
 valz = req.json()['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit']
-newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'])
+# newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'])
+newlist = valz
+if newlist == []:
+    print("Aucun train n'est prévu à intervalle d'une heure.")
+    exit(0)
 for x in newlist:
     vehicle = x['MonitoredVehicleJourney']
 
@@ -44,8 +50,18 @@ for x in newlist:
     try:
         full_code = vehicle['VehicleJourneyName'][0]['value']
     except KeyError:
+        pass
+    try:
+        full_code = vehicle['TrainNumbers']['TrainNumberRef'][0]['value']
+    except KeyError:
         full_code = None
-    date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
+
+    try:
+        date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
+                                               tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+        .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+    except KeyError:
+        date_pass = dateutil.parser.parser().parse(timestr=call_array['AimedArrivalTime'],
                                                tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
         .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
@@ -90,5 +106,4 @@ for x in newlist:
             print(Style.RESET_ALL, end='')
         # print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
 # print((x for x in req.json()['Siri']))
-# Ecriture de la réponse reçue sur un fichier
-open('Reponse.json', 'wb').write(req.content)
+
