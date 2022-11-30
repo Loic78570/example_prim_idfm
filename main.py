@@ -58,12 +58,12 @@ for x in newlist:
 
     try:
         date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
-                                               tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
-        .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+                                                   tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+            .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     except KeyError:
         date_pass = dateutil.parser.parser().parse(timestr=call_array['AimedArrivalTime'],
-                                               tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
-        .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+                                                   tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+            .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
 
     if time_diff.seconds // 60 < 60:
