@@ -76,11 +76,11 @@ for x in newlist:
 
     if time_diff.seconds // 60 < 60:
         print(f"[{full_code}]", end=" ")
-        if train_name == "UZEL":
-            print(
-                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET} à destination de {Back.LIGHTRED_EX + dest_name + Back.RESET} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
-                end=' ')
-        elif train_name == "NANI":
+        # if train_name == "UZEL":
+        #     print(
+        #         f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET}",
+        #         end=' ')
+        if line_ref == "STIF:Line::C01742:":
             print(
                 f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
