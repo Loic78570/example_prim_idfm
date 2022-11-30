@@ -70,27 +70,27 @@ for x in newlist:
         print(f"[{full_code}]", end=" ")
         if train_name == "UZEL":
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {Back.LIGHTRED_EX + dest_name + Back.RESET} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
-                end=' ')
-        elif train_name == "MOCA":
-            print(
-                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
-                end=' ')
-        elif train_name == "PUCA":
-            print(
-                f"Le {Fore.LIGHTMAGENTA_EX}Transillien [L]{Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET} à destination de {Back.LIGHTRED_EX + dest_name + Back.RESET} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
         elif train_name == "NANI":
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
         elif line_ref == "STIF:Line::C01372:":
             print(
-                f"Le {Fore.LIGHTGREEN_EX}Métro (2){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTGREEN_EX}{'Métro (2)': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                end=' ')
+        elif line_ref == "STIF:Line::C01739:":
+            print(
+                f"La {Fore.LIGHTGREEN_EX}{'Ligne [J]': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                end=' ')
+        elif line_ref == "STIF:Line::C01740:":
+            print(
+                f"La {Fore.LIGHTMAGENTA_EX}{'Ligne[L]': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
         else:
             print(
-                f"Le {Fore.LIGHTRED_EX}RER (A){Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
                 end=' ')
 
         # time
@@ -106,4 +106,3 @@ for x in newlist:
             print(Style.RESET_ALL, end='')
         # print(f"(dans {time_diff.seconds//3600, (time_diff.seconds//60)%60} minutes)")
 # print((x for x in req.json()['Siri']))
-
