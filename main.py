@@ -83,7 +83,7 @@ for x in newlist:
             pass
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
 
-    if time_diff.seconds // 60 < 60:
+    if time_diff.seconds // 60 < 60 or (abs(time_diff.total_seconds()) < 60 and call_array['VehicleAtStop']):
         print(f"[{full_code}]", end=" ")
         # if train_name == "UZEL":
         #     print(
