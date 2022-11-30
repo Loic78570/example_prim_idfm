@@ -82,24 +82,26 @@ for x in newlist:
         #         end=' ')
         if line_ref == "STIF:Line::C01742:":
             print(
-                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}RER (A){Fore.RESET} à destination de {dest_name} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET}",
                 end=' ')
         elif line_ref == "STIF:Line::C01372:":
             print(
-                f"Le {Fore.LIGHTGREEN_EX}{'Métro (2)': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTGREEN_EX}{'Métro (2)': <10}{Fore.RESET}",
                 end=' ')
         elif line_ref == "STIF:Line::C01739:":
             print(
-                f"La {Fore.LIGHTGREEN_EX}{'Ligne [J]': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"La {Fore.LIGHTGREEN_EX}{'Ligne [J]': <10}{Fore.RESET}",
                 end=' ')
         elif line_ref == "STIF:Line::C01740:":
             print(
-                f"La {Fore.LIGHTMAGENTA_EX}{'Ligne[L]': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"La {Fore.LIGHTMAGENTA_EX}{'Ligne [L]': <10}{Fore.RESET}",
                 end=' ')
         else:
             print(
-                f"Le {Fore.LIGHTRED_EX}{'RER (A)': <10}{Fore.RESET} à destination de {Style.BRIGHT + Back.BLACK}{dest_name: ^25}{Back.RESET + Style.NORMAL} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}",
+                f"Le {Fore.LIGHTRED_EX}{'Train (non rec)': <10}{Fore.RESET}",
                 end=' ')
+
+        print(f" à destination de {Back.BLACK}{dest_name: <30}{Back.RESET} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
 
         # time
         if call_array['VehicleAtStop']:
