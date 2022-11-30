@@ -95,7 +95,7 @@ for x in newlist:
 
         # time
         if call_array['VehicleAtStop']:
-            print(Fore.LIGHTCYAN_EX + "Train à quai" + Fore.LIGHTCYAN_EX)
+            print(Fore.LIGHTCYAN_EX + "Train à quai" + Fore.RESET)
         elif time_diff.seconds < 60:
             print(f"{Fore.RED}(À l'approche...){Fore.RESET}")
         # elif time_diff.seconds > 60:
