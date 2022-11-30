@@ -23,10 +23,11 @@ url = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring'
 # par votre clé API
 headers = {'Accept': 'application/json', 'apikey': secrets.api}
 # Envoi de la requête au serveur
-req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:43114:'})
+req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:473936:'})
 # cfo : 43114
 # cdg etoile rer A : 58759
 # cdg etoile 22094 , 463043
+# rer la def 473935 | 473936
 # Affichage du code réponse
 print('Status:', req)
 # Affichage du contenu de la réponse
@@ -47,6 +48,10 @@ for x in newlist:
     dest_name = vehicle['DestinationName'][0]['value']
     line_ref = vehicle['LineRef']['value']
     call_array = vehicle['MonitoredCall']
+
+    # date_dept = dateutil.parser.parser().parse(timestr=call_array['AimedDepartureTime'],
+    #                                                tzinfos={'Z': dateutil.tz.gettz('Europe/London')})\
+    #             .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
     try:
         full_code = vehicle['VehicleJourneyName'][0]['value']
     except KeyError:
