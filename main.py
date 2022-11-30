@@ -55,11 +55,10 @@ for x in newlist:
     try:
         full_code = vehicle['VehicleJourneyName'][0]['value']
     except KeyError:
-        pass
-    try:
-        full_code = vehicle['TrainNumbers']['TrainNumberRef'][0]['value']
-    except KeyError:
-        full_code = None
+        try:
+            full_code = vehicle['TrainNumbers']['TrainNumberRef'][0]['value']
+        except KeyError:
+            full_code = None
 
     try:
         date_pass = dateutil.parser.parser().parse(timestr=call_array['ExpectedArrivalTime'],
