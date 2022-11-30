@@ -110,7 +110,11 @@ for x in newlist:
                 f"Le {Fore.LIGHTRED_EX}{'Train (non rec)': <10}{Fore.RESET}",
                 end=' ')
 
-        print(f" à destination de {Back.BLACK}{dest_name: <30}{Back.RESET} passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
+        print(f" à destination de {Back.BLACK}{dest_name: <30}{Back.RESET}", end=' ')
+        if date_pass:
+            print(f"passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
+        elif date_dept:
+            print(f"partira en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
 
         # time
         if call_array['VehicleAtStop']:
