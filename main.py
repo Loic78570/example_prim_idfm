@@ -24,7 +24,7 @@ url = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring'
 headers = {'Accept': 'application/json', 'apikey': secrets.api}
 # Envoi de la requête au serveur
 print(f"{Fore.LIGHTCYAN_EX}Queryring...", end=' ')
-req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:43114:'})
+req = requests.get(url, headers=headers, params={'MonitoringRef': 'STIF:StopPoint:Q:58759:'})
 print(f"Done.{Fore.RESET}")
 # cfo : 43114
 # cdg etoile rer A : 58759
