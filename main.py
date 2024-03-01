@@ -20,7 +20,7 @@ CDG_2 = 'STIF:StopPoint:Q:473923:'
 CDG_ETOILE_METRO_2 = 'STIF:StopPoint:Q:22094:'
 CDG_ETOILE_METRO_9 = 'STIF:StopPoint:Q:463043:'
 CFO_RER_A = 'STIF:StopPoint:Q:471418:'
-CFO_RER_A2 = 'STIF:StopPoint:Q:411350:'
+CONFLANS_FIN_D_OISE = 'STIF:StopPoint:Q:411350:'
 LA_DEFENSE_RER_A = 'STIF:StopPoint:Q:473935:'
 LA_DEFENSE_RER_A2 = 'STIF:StopPoint:Q:473936:'
 LA_DEFENSE_RER_AX = 'STIF:StopPoint:Q:470549:'
@@ -35,30 +35,23 @@ url = 'https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring'
 headers = {'Accept': 'application/json', 'apikey': secrets.api}
 # Envoi de la requête au serveur
 print(f"{Fore.LIGHTCYAN_EX}Queryring...", end=' ')
-req = requests.get(url, headers=headers, params={'MonitoringRef': CFO_RER_A2})
+req = requests.get(url, headers=headers, params={'MonitoringRef': CDG_2})
 print(f"Done.{Fore.RESET}")
-# cfo : 43114
-# cdg etoile rer A : 58759
-# cdg etoile 22094 , 463043
-# rer la def 473935 | 473936
-# Affichage du code réponse
 
 print('Status:', req)
-# Affichage du contenu de la réponse
-# print(req.content)
-# Ecriture de la réponse reçue sur un fichier
 open('reponse.json', 'wb').write(req.content)
 req_json = req.json()
 valz = req.json()['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit']
-# newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall']['AimedArrivalTime'])
+newlist = sorted(valz, key=lambda d: d['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'])
 
-newlist = valz
+# newlist = valz
 if newlist == []:
     print("Aucun train n'est prévu à intervalle d'une heure.")
     exit(0)
 for x in newlist:
     # print()
     vehicle = x['MonitoredVehicleJourney']
+    # print(vehicle)
 
     try:
         datetrain = datetime.datetime.strptime(vehicle['MonitoredCall']['ExpectedArrivalTime'],
@@ -76,11 +69,12 @@ for x in newlist:
     # print("Hi!")
 
     if not (datetrain > datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)):
-        continue
+        pass
+
     # print("test : ", vehicle['LineRef']['value'] in ("STIF:Line::C01739:", "STIF:Line::C01742:", "STIF:Line::C01740"))
-    if (vehicle['LineRef']['value'] not in (
-    "STIF:Line::C01739:", "STIF:Line::C01742:", "STIF:Line::C01740", "STIF:Line::C01376:")):
-        continue
+    # if (vehicle['LineRef']['value'] not in (
+    # "STIF:Line::C01739:", "STIF:Line::C01742:", "STIF:Line::C01740", "STIF:Line::C01376:")):
+    #     continue
     # print("test2 : ", vehicle['LineRef']['value'] in ("STIF:Line::C01739:", "STIF:Line::C01742:", "STIF:Line::C01740"))
     # print(vehicle['JourneyNote'])
 
@@ -89,23 +83,24 @@ for x in newlist:
 
     except IndexError:
         train_name = None
+
     dest_name = vehicle['DestinationName'][0]['value']
     line_ref = vehicle['LineRef']['value']
     call_array = vehicle['MonitoredCall']
 
     # print("AllPassing")
 
-    try:
-        date_dept = dateutil.parser.parser().parse(timestr=call_array['AimedDepartureTime'],
-                                                   tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
-            .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
-    except KeyError:
-        try:
-            date_dept = dateutil.parser.parser().parse(timestr=call_array['ExpectedDepartureTime'],
-                                                       tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
-                .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
-        except KeyError:
-            pass
+    # try:
+    date_dept = dateutil.parser.parser().parse(timestr=call_array['ExpectedDepartureTime'],
+                                               tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+        .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+    # except KeyError:
+    #     try:
+    #         date_dept = dateutil.parser.parser().parse(timestr=call_array['ExpectedDepartureTime'],
+    #                                                    tzinfos={'Z': dateutil.tz.gettz('Europe/London')}) \
+    #             .astimezone(tz=dateutil.tz.gettz('Europe/Paris'))
+    #     except KeyError:
+    #         pass
     try:
         full_code = vehicle['JourneyNote'][0]['value']
     except IndexError:
@@ -127,6 +122,11 @@ for x in newlist:
             # date_pass = date_dept
             pass
     time_diff = (date_pass - datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
+
+    #CanWeShowTheTrain
+    if (not (date_pass > datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))
+            and not (date_dept > datetime.datetime.now(tz=dateutil.tz.gettz('Europe/Paris')))):
+        continue
 
     # print("DatesPassing")
 
@@ -165,8 +165,11 @@ for x in newlist:
         # if date_pass:
         #     print(f"passera en gare à {date_pass.strftime('%A %d/%m/%Y %H:%M:%S')}", end=' ')
         if date_dept:
-            print(f"\n\t\t >>> Voie {call_array['ArrivalPlatformName']['value']} >>> ",
-                  f"{Fore.CYAN}{date_dept.strftime('%A %d %B %Y à %H:%M:%S')}{Fore.RESET} >>", end=' ')
+            try:
+                print(f"\n\t\t>>> Voie {call_array['ArrivalPlatformName']['value']}", end=' ')
+            except KeyError:
+                print(f"\n\t\t>>> Voie non renseignée", end=' ')
+            print(f"\n\t\t>>> {Fore.CYAN}{date_pass.strftime('%A %d %B %Y à %H:%M').lower()}{Fore.RESET} >>", end=' ')
 
         # time
         if call_array['VehicleAtStop']:
@@ -179,6 +182,8 @@ for x in newlist:
                 print(Style.BRIGHT + Fore.LIGHTRED_EX, end='')
             print(f"(dans {(time_diff.seconds // 3600) * 60 + (time_diff.seconds // 60) % 60} minutes)")
             print(Style.RESET_ALL, end='')
+
+
         req2 = requests.get("https://prim.iledefrance-mobilites.fr/marketplace/general-message",
                             headers={'Accept': 'application/json', 'apikey': secrets.api},
                             params={'LineRef': line_ref})
